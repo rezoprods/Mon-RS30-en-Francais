@@ -47,7 +47,7 @@ class TranslationCore(private val maxEntries: Int = 5000) {
 
     @Synchronized
     fun toJson(): String =
-        JSONObject().put("version", 1).put("entries", JSONObject(HashMap(cache))).toString()
+        JSONObject().put("version", 1).put("entries", JSONObject(HashMap(cache))).toString()as MutableMap<Any?, Any?> 
 
     @Synchronized
     fun lookup(text: String): Result? {
