@@ -5,14 +5,18 @@ import android.util.Log
 object Diag {
     private val diagnosticLogs = mutableListOf<String>()
 
-    // Bons types pour éviter les erreurs d'appel
-    var recentKeys: MutableList<String> = mutableListOf()
-    var ocrStatus: String = ""
-    var scanSource: String = ""
-    var scanItems: MutableList<String> = mutableListOf()
-    var overlayError: String = ""
-    var storeError: String = ""
-    var recordKey: String = ""
+    // Variables de statut (peuvent recevoir des entiers ou des objets)
+    var ocrStatus: Any? = 0
+    var scanSource: Any? = 0
+    var scanItems: Any? = 0
+    var overlayError: Any? = null
+    var storeError: Any? = null
+    var recordKey: Any? = null
+
+    // Fonction recentKeys appelée par MainActivity
+    fun recentKeys(vararg args: Any?) {
+        // Fonction de journalisation des clés récentes
+    }
 
     fun log(message: String) {
         try {
