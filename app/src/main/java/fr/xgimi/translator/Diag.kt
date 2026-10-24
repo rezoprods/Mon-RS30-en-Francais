@@ -1,4 +1,4 @@
-package xgimi.translator
+package fr.xgimi.translator
 
 import android.util.Log
 
