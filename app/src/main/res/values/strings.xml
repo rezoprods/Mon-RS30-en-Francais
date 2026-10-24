@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="service_description">Lit le texte chinois affiché à l\'écran du projecteur et affiche sa traduction française par-dessus.</string>
+</resources>

@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XGIMI RS30 Ultra — Guide des Menus</title>
+<style>
+  :root{
+    --bg: #0d0a17;
+    --bg2: #150f24;
+    --panel: #1b1430;
+    --panel2: #221a3a;
+    --violet: #8b5cf6;
+    --violet2: #c084fc;
+    --pink: #e879c9;
+    --text: #ece7f7;
+    --dim: #a89cc4;
+    --line: #362a54;
+    --accent-on: #7ee8b8;
+    --accent-off: #8c7fae;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(ellipse 900px 500px at 15% -5%, rgba(139,92,246,0.25), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 100% 10%, rgba(232,121,201,0.15), transparent 55%),
+      var(--bg);
+    color:var(--text);
+    font-family: 'Segoe UI', -apple-system, 'Helvetica Neue', Arial, sans-serif;
+    min-height:100vh;
+    padding-bottom:60px;
+  }
+  header{
+    padding:34px 20px 20px;
+    text-align:center;
+    border-bottom:1px solid var(--line);
+    background:linear-gradient(180deg, rgba(139,92,246,0.08), transparent);
+  }
+  .eyebrow{
+    letter-spacing:3px;
+    font-size:11px;
+    text-transform:uppercase;
+    color:var(--violet2);
+    font-weight:600;
+  }
+  h1{
+    margin:8px 0 4px;
+    font-size:clamp(24px,5vw,38px);
+    font-weight:800;
+    background:linear-gradient(90deg,#fff,#d9c8ff);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    letter-spacing:-0.5px;
+  }
+  .subtitle{color:var(--dim); font-size:14px;}
+
+  .search-wrap{
+    max-width:720px;
+    margin:24px auto 6px;
+    padding:0 20px;
+  }
+  .search-box{
+    position:relative;
+    display:flex;
+    align-items:center;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:12px 16px;
+    box-shadow: 0 0 0 1px rgba(139,92,246,0.05), 0 8px 24px rgba(0,0,0,0.35);
+    transition:border-color .2s;
+  }
+  .search-box:focus-within{
+    border-color:var(--violet);
+    box-shadow:0 0 0 3px rgba(139,92,246,0.25);
+  }
+  .search-box svg{flex-shrink:0; margin-right:10px;}
+  .search-box input{
+    background:transparent;
+    border:none;
+    outline:none;
+    color:var(--text);
+    font-size:16px;
+    width:100%;
+    font-family:inherit;
+  }
+  .search-box input::placeholder{color:var(--dim);}
+  .clear-btn{
+    background:var(--panel2);
+    border:1px solid var(--line);
+    color:var(--dim);
+    border-radius:8px;
+    padding:4px 10px;
+    cursor:pointer;
+    font-size:13px;
+    display:none;
+  }
+  .clear-btn.show{display:block;}
+  .result-count{
+    max-width:720px;
+    margin:8px auto 0;
+    padding:0 24px;
+    font-size:12px;
+    color:var(--dim);
+    min-height:16px;
+  }
+
+  .tabs{
+    max-width:1000px;
+    margin:22px auto 0;
+    padding:0 20px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    justify-content:center;
+  }
+  .tab{
+    background:var(--panel);
+    border:1px solid var(--line);
+    color:var(--dim);
+    padding:9px 16px;
+    border-radius:12px;
+    font-size:13px;
+    cursor:pointer;
+    font-weight:600;
+    transition:all .15s;
+    white-space:nowrap;
+  }
+  .tab:hover{border-color:var(--violet2); color:var(--text);}
+  .tab.active{
+    background:linear-gradient(135deg,var(--violet),#6633cc);
+    color:#fff;
+    border-color:transparent;
+    box-shadow:0 4px 14px rgba(139,92,246,0.4);
+  }
+
+  main{
+    max-width:1000px;
+    margin:28px auto;
+    padding:0 20px;
+  }
+  .section{display:none;}
+  .section.active{display:block;}
+  .section.search-mode{display:block !important;}
+
+  .group{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:18px;
+    margin-bottom:20px;
+    overflow:hidden;
+  }
+  .group-header{
+    padding:14px 20px;
+    background:linear-gradient(90deg, rgba(139,92,246,0.18), rgba(232,121,201,0.06));
+    border-bottom:1px solid var(--line);
+    font-weight:700;
+    font-size:14.5px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .group-header .icon{font-size:18px;}
+  .rows{padding:6px 0;}
+  .row{
+    display:grid;
+    grid-template-columns:110px 1fr 1.3fr;
+    gap:14px;
+    padding:12px 20px;
+    border-bottom:1px solid rgba(255,255,255,0.03);
+    align-items:start;
+  }
+  .row:last-child{border-bottom:none;}
+  .row:hover{background:rgba(139,92,246,0.06);}
+  .cn{
+    color:var(--violet2);
+    font-weight:600;
+    font-size:14px;
+  }
+  .fr{
+    font-weight:700;
+    font-size:14.5px;
+    color:var(--text);
+  }
+  .fn{
+    color:var(--dim);
+    font-size:13.5px;
+    line-height:1.5;
+  }
+  .val{
+    display:inline-block;
+    margin-top:4px;
+    font-size:11.5px;
+    padding:2px 9px;
+    border-radius:20px;
+    font-weight:700;
+  }
+  .val.on{background:rgba(126,232,184,0.15); color:var(--accent-on);}
+  .val.off{background:rgba(140,127,174,0.15); color:var(--accent-off);}
+  .val.neutral{background:rgba(139,92,246,0.15); color:var(--violet2);}
+
+  .options{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    margin-top:8px;
+  }
+  .opt-label{
+    font-size:11px;
+    color:var(--dim);
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    width:100%;
+    margin-bottom:2px;
+  }
+  .opt-chip{
+    font-size:12px;
+    padding:3px 10px;
+    border-radius:8px;
+    background:var(--panel2);
+    border:1px solid var(--line);
+    color:var(--text);
+  }
+  .opt-chip.selected{
+    background:linear-gradient(135deg,var(--violet),#6633cc);
+    border-color:transparent;
+    color:#fff;
+    font-weight:700;
+  }
+
+  mark{
+    background:var(--pink);
+    color:#1a0d24;
+    padding:0 2px;
+    border-radius:3px;
+  }
+
+  .tip{
+    margin:14px 20px 18px;
+    padding:12px 16px;
+    border-radius:12px;
+    font-size:13px;
+    line-height:1.5;
+  }
+  .tip.green{background:rgba(126,232,184,0.08); border:1px solid rgba(126,232,184,0.25); color:#c9f5e3;}
+  .tip.amber{background:rgba(245,197,66,0.08); border:1px solid rgba(245,197,66,0.25); color:#f5e2b8;}
+
+  .no-results{
+    text-align:center;
+    color:var(--dim);
+    padding:60px 20px;
+    font-size:14px;
+  }
+
+  .hero-icons{
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    margin:20px auto 0;
+    flex-wrap:wrap;
+    max-width:600px;
+  }
+  .hicon{
+    width:44px;height:44px;
+    border-radius:14px;
+    background:linear-gradient(135deg,var(--panel2),var(--panel));
+    border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;
+    font-size:19px;
+  }
+
+  footer{
+    text-align:center;
+    color:var(--dim);
+    font-size:12px;
+    margin-top:40px;
+    padding:0 20px;
+  }
+
+  @media (max-width:640px){
+    .row{grid-template-columns:1fr; gap:4px;}
+    .cn{font-size:12.5px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">Guide de référence · XGIMI RS30 Ultra</div>
+  <h1>XGIMI RS30 Ultra</h1>
+  <div class="subtitle">Guide complet des menus — Édition chinoise 中文 → Français</div>
+  <div class="hero-icons">
+    <div class="hicon">🔍</div>
+    <div class="hicon">☀️</div>
+    <div class="hicon">📶</div>
+    <div class="hicon">🖥️</div>
+    <div class="hicon">🔊</div>
+  </div>
+</header>
+
+<div class="search-wrap">
+  <div class="search-box">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a89cc4" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="text" id="searchInput" placeholder="Rechercher un réglage… (ex: gamma, iris, f/2.0, 图像模式)">
+    <button class="clear-btn" id="clearBtn">✕</button>
+  </div>
+  <div class="result-count" id="resultCount"></div>
+</div>
+
+<div class="tabs" id="tabs"></div>
+
+<main id="main"></main>
+
+<footer>XGIMI RS30 Ultra — Guide personnel des menus · Mis à jour le 17 juillet 2026</footer>
+
+<script>
+const DATA = [
+  {
+    id: "raccourcis",
+    title: "1. Raccourcis Rapides",
+    icon: "⚡",
+    chinese: "快捷菜单",
+    groups: [
+      {
+        name: "Ligne 1 — Grands boutons du haut",
+        icon: "🔝",
+        rows: [
+          {cn:"变焦 with 移轴", fr:"Zoom et Lens Shift", fn:"Ajustement optique mécanique de la taille et du déplacement physique de l'image sans perte."},
+          {cn:"一键画面校正", fr:"Correction d'image en un clic", fn:"Trapèze et autofocus automatique instantané."},
+        ]
+      },
+      {
+        name: "Ligne 2 — Réglages d'image",
+        icon:"📐",
+        rows:[
+          {cn:"图像模式", fr:"Mode d'image", fn:"Cinéma, IA, Sport, Master... Accès rapide à la liste des profils d'image."},
+          {cn:"专业设置", fr:"Paramètres professionnels", fn:"Réglages experts complets : contrastes locaux, gamut DCI-P3, balance des blancs et CMS."},
+        ]
+      },
+      {
+        name:"Ligne 3 — Icônes carrées",
+        icon:"🎛️",
+        rows:[
+          {cn:"☀️ Soleil", fr:"Luminosité", fn:"Ajustement direct de l'intensité laser globale (échelle de 1 à 10)."},
+          {cn:"⭕ Diaphragme", fr:"Ouverture mécanique / Iris", fn:"Choix physique entre f/2.0, f/3.5 ou f/5.0 pour optimiser le contraste natif."},
+          {cn:"⌂ Maison", fr:"Sélection entrée d'accueil", fn:"Source d'affichage par défaut au démarrage de la machine."},
+          {cn:"🖥️ Double écran", fr:"Recopie d'écran / Cast", fn:"Partage de flux sans fil intelligent."},
+        ]
+      },
+      {
+        name:"Ligne 4 — Rectangles du bas",
+        icon:"📡",
+        rows:[
+          {cn:"信号源", fr:"Source du signal", fn:"Bascule et configuration avancée des ports HDMI."},
+          {cn:"📶 Wi-Fi", fr:"Paramètres Wi-Fi / Réseau", fn:"Accès rapide à la configuration et aux points d'accès."},
+          {cn:"ᛒ Bluetooth", fr:"Paramètres Bluetooth", fn:"Appairage rapide de périphériques audio ou accessoires."},
+        ]
+      },
+      {
+        name:"Ligne 5 — Bandeau du bas",
+        icon:"🎵",
+        rows:[
+          {cn:"蓝牙音乐 / 未连接", fr:"Musique Bluetooth / Non connecté", fn:"Permet d'exploiter le système acoustique comme enceinte dédiée."},
+          {cn:"⏮ ⏯ ⏭", fr:"Contrôle média", fn:"Boutons de contrôle pour la lecture musicale ou vidéo autonome."},
+        ]
+      }
+    ]
+  },
+  {
+    id:"modes-image",
+    title:"1.1 Modes d'Image",
+    icon:"🎨",
+    chinese:"图像模式",
+    groups:[
+      {
+        name:"Sélection des profils d'affichage disponibles",
+        icon:"🖼️",
+        rows:[
+          {cn:"电影", fr:"Cinéma", fn:"Température plus chaude, fidèle aux standards de l'œuvre originale (recommandé pour environnement sombre).", val:"Sélectionné", valType:"on"},
+          {cn:"AI画质", fr:"Qualité d'image IA", fn:"Ajustement dynamique intelligent de la colorimétrie et de la netteté selon le flux détecté."},
+          {cn:"运动", fr:"Sport / Mouvement", fn:"Optimise la fluidité de la dalle pour compenser les mouvements très rapides."},
+          {cn:"大师色彩", fr:"Couleurs Master / Référence", fn:"Profil de fidélité extrême étalonné en usine pour les puristes."},
+          {cn:"办公", fr:"Bureautique", fn:"Luminosité maximale et accentuation des contours pour les textes et salles éclairées."},
+        ]
+      }
+    ],
+    tip:{type:"green", text:"💡 Note : Le mode <b>电影 (Cinéma)</b> applique des valeurs de base idéales à 50% sur l'ensemble des critères de dynamique avant personnalisation."}
+  },
+  {
+    id:"pro-image",
+    title:"1.2 Pro Image",
+    icon:"🚟",
+    chinese:"专业设置",
+    groups:[
+      {
+        name:"Profil sélectionné : 电影 (Cinéma)",
+        icon:"🎞️",
+        rows:[
+          {cn:"在线/本地视频", fr:"Source actuelle", fn:"Indique le type de flux traité par le moteur graphique.", val:"SDR", valType:"neutral"}
+        ]
+      },
+      {
+        name:"1. Ajustements de base (基本)",
+        icon:"🔹",
+        rows:[
+          {cn:"亮度", fr:"Luminosité", fn:"Niveau de noir global.", val:"50", valType:"neutral"},
+          {cn:"对比度", fr:"Contraste", fn:"Blancs et pics lumineux.", val:"50", valType:"neutral"},
+          {cn:"饱和度", fr:"Saturation", fn:"Intensité et vivacité des couleurs.", val:"50", valType:"neutral"},
+          {cn:"锐度", fr:"Netteté / Piqué", fn:"Accentuation des contours.", val:"50", valType:"neutral"},
+          {cn:"运动补偿", fr:"Compensation de mouvement (MEMC)", fn:"Algorithme d'insertion de cadres pour fluidifier les travellings.", val:"Moyen 中", valType:"neutral"},
+        ]
+      },
+      {
+        name:"2. Colorimétrie & Balance (色彩)",
+        icon:"🎨",
+        rows:[
+          {cn:"色彩", fr:"Espace de rendu", fn:"Rappel du mode d'image actif.", val:"电影 / Cinéma", valType:"neutral"},
+          {cn:"色温", fr:"Température de couleur", fn:"Ajustement global de la dérive (Chaud, Froid, Normal)."},
+          {cn:"白平衡", fr:"Balance des blancs", fn:"Calibration experte Gain et Offset sur les trois axes RVB."},
+          {cn:"色彩空间", fr:"Espace colorimétrique", fn:"Sélection du gamut cible.", val:"DCI-P3", valType:"neutral"},
+          {cn:"色彩优化", fr:"Optimisation des couleurs", fn:"Extension algorithmique de la dynamique des nuances.", val:"Activé 开", valType:"on"},
+          {cn:"色彩校正", fr:"Correction des couleurs (CMS)", fn:"Ajustement chirurgical de la teinte, saturation et luminosité pour chaque couleur."},
+        ]
+      },
+      {
+        name:"3. Courbes de Contraste & Gamma (对比度)",
+        icon:"📐",
+        rows:[
+          {cn:"Gamma", fr:"Gestion du Gamma", fn:"Bascule entre les courbes automatiques ou l'étalonnage expert.", val:"Manuel 手动", valType:"neutral"},
+          {cn:"Gamma指数", fr:"Valeur Gamma", fn:"Exposant de luminance de la courbe.", val:"2.2", valType:"neutral"},
+          {cn:"局部对比度", fr:"Contraste local", fn:"Ajustement dynamique par zones de l'image.", val:"Moyen 中", valType:"neutral"},
+          {cn:"动态对比度", fr:"Contraste dynamique", fn:"Modulation en temps réel de la courbe de contraste globale.", val:"Activé 开", valType:"on"},
+          {cn:"AI对比度", fr:"Contraste par IA", fn:"Analyse intelligente scène par scène pour déboucher les noirs.", val:"Activé 开", valType:"on"},
+          {cn:"动态点位增强", fr:"Amélioration dynamique des détails", fn:"Renforcement localisé de la texture dans les zones sombres ou complexes.", val:"Désactivé 关", valType:"off"},
+        ]
+      },
+      {
+        name:"4. Clarté & Résolution (清晰度)",
+        icon:"🔍",
+        rows:[
+          {cn:"清晰度", fr:"Clarté générale", fn:"Filtre de réduction du flou résiduel.", val:"Moyen 中", valType:"neutral"},
+          {cn:"超分辨率", fr:"Super Résolution / Upscaling", fn:"Sur-échantillonnage par IA pour magnifier les sources basse définition.", val:"Activé 开", valType:"on"},
+        ]
+      },
+      {
+        name:"5. Options globales (更多)",
+        icon:"🔄",
+        rows:[
+          {cn:"恢复默认设置", fr:"Réinitialiser les paramètres d'image", fn:"Restaure l'intégralité des valeurs d'usine du profil d'image courant."},
+        ]
+      }
+    ]
+  },
+  {
+    id:"correction-image",
+    title:"2.1 Correction Image",
+    icon:"📐",
+    chinese:"画面校正",
+    groups:[
+      {
+        name:"Ajustements Géométriques et Cadrage",
+        icon:"🎯",
+        rows:[
+          {cn:"对焦", fr:"Mise au point (Focus)", fn:"Menu d'ajustement du piqué optique de la lentille.", options:[
+            {cn:"自动对焦", fr:"Mise au point automatique"},
+            {cn:"手动对焦", fr:"Mise au point manuelle"},
+            {cn:"智能自动对焦", fr:"Focus automatique intelligent", note:"Analyse continue en arrière-plan sans interrompre le visionnage", selected:true},
+          ]},
+          {cn:"梯形校正", fr:"Correction trapézoïdale", fn:"Ajustement manuel ou automatique de la géométrie de projection."},
+          {cn:"一键画面校正", fr:"Correction d'image en un clic", fn:"Algorithme global instantané : recadrage, trapèze et focus."},
+          {cn:"手动梯形校正", fr:"Correction manuelle pas-à-pas", fn:"Ajustement expert aux 4 coins du cadre à l'aide de mires."},
+          {cn:"画面校正设置", fr:"Sous-menu des automatismes géométriques", fn:"Configuration fine des déclencheurs de correction (voir ci-dessous)."},
+          {cn:"大小和位置", fr:"Taille et Position", fn:"Menu d'accès à la configuration de la taille d'affichage."},
+          {cn:"光学变焦与移轴", fr:"Zoom optique et Lens Shift 🌟", fn:"Ajustement mécanique matériel haut de gamme, sans dégradation numérique de la résolution."},
+          {cn:"画面位移", fr:"Déplacement de l'image (Lens Shift logiciel)", fn:"Déplacement fin du cadre via interpolation numérique."},
+          {cn:"画面旋转", fr:"Rotation de l'image", fn:"Pivote l'affichage à 180° pour s'adapter à toutes les configurations physiques."},
+        ]
+      },
+      {
+        name:"Réglages de correction d'écran (画面校正设置)",
+        icon:"⚙️",
+        rows:[
+          {cn:"实时画面校正", fr:"Correction d'image en temps réel", fn:"Ajustement géométrique dynamique transparent.", val:"Activé", valType:"on"},
+          {cn:"开机自动校正", fr:"Correction automatique à l'allumage", fn:"Force un cycle de calcul de géométrie à chaque démarrage à froid.", val:"Désactivé", valType:"off"},
+          {cn:"画面智能避障", fr:"Évitement intelligent d'obstacles", fn:"Recadre automatiquement pour contourner les obstacles physiques muraux détectés.", val:"Activé", valType:"on"},
+          {cn:"画面自动画幕对齐", fr:"Alignement automatique à la toile", fn:"Détection intelligente des contours noirs d'un écran fixe pour s'y caler.", val:"Désactivé", valType:"off"},
+        ]
+      },
+      {
+        name:"Fonctions intelligentes & Capteurs (智能)",
+        icon:"🧠",
+        rows:[
+          {cn:"墙面记忆", fr:"Mémoire de mur", fn:"Mémorise l'étalonnage géométrique propre à une pièce ou une surface de projection spécifique."},
+        ]
+      },
+      {
+        name:"Paramètres système (更多)",
+        icon:"➕",
+        rows:[
+          {cn:"恢复默认画面", fr:"Réinitialiser l'image par défaut", fn:"Réinitialise tous les zooms mécaniques/numériques et corrections."},
+          {cn:"辅助安装", fr:"Assistant d'installation", fn:"Mires de calibration et tutoriel de placement physique initial."},
+        ]
+      },
+      {
+        name:"Mode de projection (投影方式)",
+        icon:"🔄",
+        rows:[
+          {cn:"自动", fr:"Automatique", fn:"Bascule automatique du sens de l'image via capteur gyroscopique interne.", val:"Sélectionné", valType:"on"},
+          {cn:"正装", fr:"Montage standard", fn:"Positionnement normal à l'endroit (posé sur table/étagère)."},
+          {cn:"吊装", fr:"Montage au plafond", fn:"Inversion verticale complète pour installation suspendue tête en bas."},
+          {cn:"背投", fr:"Rétroprojection", fn:"Inversion horizontale pour projection par l'arrière à travers une toile translucide."},
+        ]
+      }
+    ]
+  },
+  {
+    id:"luminosite",
+    title:"2.2 Luminosité",
+    icon:"☀️",
+    chinese:"亮度与显示",
+    groups:[
+      {
+        name:"Gestion de la puissance lumineuse (投影亮度)",
+        icon:"💡",
+        rows:[
+          {cn:"环境自适应", fr:"Adaptation à la lumière ambiante", fn:"Ajustement dynamique de la puissance lumineuse via capteur de flux.", val:"Désactivé 关", valType:"off"},
+          {cn:"亮度调节", fr:"Réglage de la luminosité", fn:"Puissance brute de la source lumineuse laser Triple Couleur.", val:"10", valType:"neutral"},
+          {cn:"光圈调节", fr:"Réglage de l'ouverture / Iris (Mécanique) 🌟", fn:"Ajuste physiquement le diamètre de passage de l'objectif. f/2.0 pour maximiser le flux lumineux en pièce éclairée ; f/5.0 pour booster le contraste en salle dédiée obscure.", options:[
+            {cn:"f/2.0", fr:"Ouverture Large (Flux max)", selected:true},
+            {cn:"f/3.5", fr:"Ouverture Intermédiaire"},
+            {cn:"f/5.0", fr:"Ouverture Fermée (Contraste max)"},
+          ]},
+        ]
+      },
+      {
+        name:"Raccourcis Image & Profils (图像)",
+        icon:"🎨",
+        rows:[
+          {cn:"图像模式", fr:"Mode d'image", fn:"Raccourci vers la liste des modes (Cinéma, Sport, IA, Master...).", val:"电影 / Cinéma", valType:"neutral"},
+          {cn:"专业设置", fr:"Paramètres professionnels", fn:"Raccourci vers les menus de calibration experte (Gamma, CMS...)."},
+          {cn:"重置图像设置", fr:"Réinitialiser les paramètres d'image", fn:"Raccourci rapide de remise à zéro des modifications visuelles."},
+        ]
+      },
+      {
+        name:"Modes Avancés & Spécifiques",
+        icon:"⚙️",
+        rows:[
+          {cn:"3D设置", fr:"Paramètres 3D", fn:"Configuration et synchronisation des flux stéréoscopiques DLP-Link.", options:[
+            {cn:"关闭3D", fr:"Désactiver la 3D", selected:true},
+            {cn:"左右3D", fr:"3D Côte à côte (Side-by-Side)"},
+            {cn:"上下3D", fr:"3D Haut et Bas (Top-and-Bottom)"},
+            {cn:"左右3D转2D", fr:"Conversion 3D Côte à côte vers 2D standard"},
+            {cn:"上下3D转2D", fr:"Conversion 3D Haut et Bas vers 2D standard"},
+          ]},
+          {cn:"游戏增强模式", fr:"Mode Amélioration de Jeu (Low Latency / ALLM)", fn:"Optimisation drastique du temps de réponse (Input Lag). Utile sur HDMI pour console de salon.", val:"Désactivé 关", valType:"off"},
+          {cn:"风格滤镜", fr:"Filtres de style / LUTs", fn:"Application d'ambiances colorimétriques typées (ex : Noir et Blanc, Sépia)."},
+        ]
+      }
+    ]
+  },
+  {
+    id:"reseau",
+    title:"2.3 Réseau",
+    icon:"📶",
+    chinese:"网络",
+    groups:[
+      {
+        name:"Connexions Wi-Fi",
+        icon:"🌐",
+        rows:[
+          {cn:"Réseau Wi-Fi connecté", fr:"Réseau connecté", fn:"Le petit crochet bleu confirme l'association au réseau.", val:"Connecté", valType:"on"},
+          {cn:"可用网络", fr:"Réseaux disponibles", fn:"Liste des box détectées à proximité."},
+          {cn:"Réseau Wi-Fi 5 GHz", fr:"Bande 5 GHz disponible", fn:"Réseau sécurisé (cadenas)."},
+          {cn:"手动添加网络", fr:"Ajouter un réseau manuellement", fn:"Pour un réseau masqué — SSID à saisir."},
+        ]
+      },
+      {
+        name:"Partage de connexion 热点",
+        icon:"📡",
+        rows:[
+          {cn:"无线热点", fr:"Point d'accès sans fil / Hotspot", fn:"Transforme le projecteur en point relais Wi-Fi.", val:"Désactivé", valType:"off"},
+        ]
+      }
+    ]
+  },
+  {
+    id:"source",
+    title:"2.4 Source Signal",
+    icon:"🔌",
+    chinese:"信号源",
+    groups:[
+      {
+        name:"Configuration des ports HDMI",
+        icon:"🔌",
+        rows:[
+          {cn:"HDMI 1", fr:"HDMI 1", fn:"Appareil allumé détecté sur ce port.", val:"Connecté", valType:"on"},
+          {cn:"HDMI 1 设置", fr:"Réglages HDMI 1", fn:"Gestion de la version du protocole ou du mode eARC si dispo sur ce port.", options:[
+            {cn:"HDMI 2.0", fr:"Version 2.0", note:"Compatibilité maximale"},
+            {cn:"HDMI 2.1", fr:"Version 2.1", note:"Bande passante max — 4K120, VRR", selected:true},
+          ]},
+          {cn:"HDMI 2", fr:"HDMI 2", fn:"Aucun signal détecté.", val:"Non connecté", valType:"off"},
+          {cn:"HDMI 2 设置", fr:"Réglages HDMI 2", fn:"Mêmes options que HDMI 1."},
+        ]
+      },
+      {
+        name:"Réglages globaux 全局设置",
+        icon:"⚙️",
+        rows:[
+          {cn:"开机源", fr:"Source au démarrage", fn:"Choix entre interface chinoise ou flux HDMI direct au démarrage.", val:"Par défaut", valType:"neutral"},
+          {cn:"CEC控制", fr:"Contrôle CEC", fn:"Synchronise l'allumage du projecteur avec la console ou le lecteur Blu-ray."},
+          {cn:"HDMI即插即播", fr:"Plug & Play HDMI", fn:"Bascule automatique dès qu'un appareil est branché/allumé en HDMI.", val:"Activé", valType:"on"},
+        ]
+      }
+    ]
+  },
+  {
+    id:"bluetooth",
+    title:"2.5 Bluetooth",
+    icon:"🔷",
+    chinese:"蓝牙与配件",
+    groups:[
+      {
+        name:"Appareils et accessoires",
+        icon:"📱",
+        rows:[
+          {cn:"添加更多设备", fr:"Ajouter d'autres appareils", fn:"Lance une recherche pour appairer un casque ou une enceinte."},
+          {cn:"极米遥控器", fr:"Télécommande XGIMI", fn:"Télécommande d'origine synchronisée.", val:"Connectée", valType:"on"},
+        ]
+      },
+      {
+        name:"Autres paramètres 其他",
+        icon:"⚙️",
+        rows:[
+          {cn:"蓝牙可被发现", fr:"Bluetooth découvrable", fn:"Le projecteur est visible par d'autres appareils (smartphone, etc.).", val:"Activé", valType:"on"},
+          {cn:"蓝牙绝对音量", fr:"Volume absolu Bluetooth", fn:"Une fois activé, le volume du projecteur et de l'appareil Bluetooth se synchronisent sur une seule jauge.", val:"Désactivé", valType:"off"},
+        ]
+      }
+    ]
+  },
+  {
+    id:"audio",
+    title:"2.6 Audio",
+    icon:"🔊",
+    chinese:"声音",
+    groups:[
+      {
+        name:"Effets sonores 音效",
+        icon:"🎵",
+        rows:[
+          {cn:"音效模式", fr:"Mode d'effet sonore", fn:"Le projecteur adapte le profil audio selon le contenu.", val:"AI音效 / IA", valType:"neutral"},
+          {cn:"增强音效", fr:"Amélioration sonore / Égaliseur", fn:"Active le traitement acoustique premium d'origine.", val:"Harman Kardon", valType:"neutral"},
+        ]
+      },
+      {
+        name:"Sorties audio 输出",
+        icon:"🔌",
+        rows:[
+          {cn:"声音输出", fr:"Sortie audio", fn:"Choisit où envoyer le son.", options:[
+            {cn:"内置扬声器", fr:"Haut-parleurs internes", selected:true},
+            {cn:"光纤输出", fr:"Sortie optique"},
+            {cn:"HDMI eARC", fr:"HDMI eARC", note:"Formats audio HD sans perte vers ampli/barre de son"},
+            {cn:"蓝牙", fr:"Bluetooth"},
+          ]},
+          {cn:"eARC 模式", fr:"Mode eARC", fn:"Indispensable pour renvoyer les formats audio HD sans perte vers un équipement externe.", val:"Automatique", valType:"neutral"},
+        ]
+      },
+      {
+        name:"Option système",
+        icon:"🔔",
+        rows:[
+          {cn:"按键音", fr:"Bip des touches", fn:"Petit bruit sonore à chaque pression sur la télécommande.", val:"Activé", valType:"on"},
+        ]
+      }
+    ]
+  },
+  {
+    id:"systeme",
+    title:"2.7 Système",
+    icon:"⚙️",
+    chinese:"通用",
+    groups:[
+      {
+        name:"Informations et mises à jour 系统",
+        icon:"🖥️",
+        rows:[
+          {cn:"关于本机", fr:"À propos de l'appareil", fn:"Modèle exact (RS30 Ultra), espace de stockage restant, numéro de série."},
+          {cn:"系统更新", fr:"Mise à jour du système", fn:"Vérifie si une nouvelle version du firmware est disponible."},
+        ]
+      },
+      {
+        name:"Affichage et protection 显示",
+        icon:"🎨",
+        rows:[
+          {cn:"智能防射眼", fr:"Protection oculaire intelligente", fn:"Coupe/baisse instantanément le laser si quelqu'un passe devant l'objectif.", val:"Activé", valType:"on"},
+          {cn:"主题风格", fr:"Style du thème", fn:"Thème visuel de l'interface.", val:"Noir", valType:"neutral"},
+          {cn:"屏保", fr:"Écran de veille", fn:"Gestion du temps avant mise en veille et choix des images."},
+          {cn:"色觉优化", fr:"Optimisation perception des couleurs", fn:"Mode d'accessibilité pour daltonisme.", val:"Désactivé", valType:"off"},
+          {cn:"长辈色彩优化", fr:"Optimisation couleurs seniors", fn:"Ajuste contraste et lisibilité.", val:"Désactivé", valType:"off"},
+        ]
+      },
+      {
+        name:"Extensions et écosystème 扩展",
+        icon:"🌐",
+        rows:[
+          {cn:"物联网", fr:"IoT / Objets connectés", fn:"Intégration domotique ou écosystème intelligent de la marque."},
+          {cn:"语音助手", fr:"Assistant vocal", fn:"Configuration de la reconnaissance vocale chinoise."},
+          {cn:"家长设置", fr:"Contrôle parental", fn:"Mode enfants."},
+        ]
+      },
+      {
+        name:"Options avancées et réinitialisation 更多",
+        icon:"🛠️",
+        rows:[
+          {cn:"高级设置", fr:"Paramètres avancés", fn:"Heure, langue d'entrée du clavier, comportement des ports USB."},
+          {cn:"云备份", fr:"Sauvegarde Cloud", fn:"Sauvegarde des configurations sur les serveurs XGIMI en Chine."},
+          {cn:"恢复出厂", fr:"Réinitialiser aux paramètres d'usine", fn:"⚠️ Efface tout, remet le projecteur à l'état neuf."},
+          {cn:"帮助与反馈", fr:"Aide et Commentaires", fn:"Support technique."},
+        ]
+      }
+    ]
+  }
+];
+
+// ---- Build tabs ----
+const tabsEl = document.getElementById('tabs');
+const mainEl = document.getElementById('main');
+
+DATA.forEach((section, i) => {
+  const tab = document.createElement('button');
+  tab.className = 'tab' + (i===0 ? ' active' : '');
+  tab.textContent = section.icon + ' ' + section.title;
+  tab.dataset.target = section.id;
+  tab.addEventListener('click', () => showSection(section.id));
+  tabsEl.appendChild(tab);
+
+  const sec = document.createElement('div');
+  sec.className = 'section' + (i===0 ? ' active' : '');
+  sec.id = 'sec-' + section.id;
+
+  let html = '';
+  section.groups.forEach(g => {
+    html += `<div class="group" data-group>
+      <div class="group-header"><span class="icon">${g.icon||''}</span>${g.name}</div>
+      <div class="rows">`;
+    g.rows.forEach(r => {
+      const optSearch = (r.options||[]).map(o => o.cn+' '+o.fr+' '+(o.note||'')).join(' ');
+      let optsHtml = '';
+      if (r.options && r.options.length) {
+        optsHtml = `<div class="options"><span class="opt-label">Choix disponibles</span>`;
+        r.options.forEach(o => {
+          optsHtml += `<span class="opt-chip${o.selected?' selected':''}" title="${o.fr}${o.note?' — '+o.note:''}">${o.cn} · ${o.fr}${o.selected?' ✓':''}</span>`;
+        });
+        optsHtml += `</div>`;
+      }
+      html += `<div class="row" data-row data-search="${(r.cn+' '+r.fr+' '+r.fn+' '+(r.val||'')+' '+optSearch).toLowerCase()}">
+        <div class="cn">${r.cn}</div>
+        <div class="fr">${r.fr}</div>
+        <div class="fn">${r.fn}${r.val ? `<br><span class="val ${r.valType||'neutral'}">${r.val}</span>` : ''}${optsHtml}</div>
+      </div>`;
+    });
+    html += `</div></div>`;
+  });
+  if (section.tip) {
+    html += `<div class="tip ${section.tip.type}">${section.tip.text}</div>`;
+  }
+  sec.innerHTML = html;
+  mainEl.appendChild(sec);
+});
+
+function showSection(id) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.target === id));
+  document.querySelectorAll('.section').forEach(s => s.classList.toggle('active', s.id === 'sec-' + id));
+  document.getElementById('searchInput').value = '';
+  document.getElementById('clearBtn').classList.remove('show');
+  document.getElementById('resultCount').textContent = '';
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('search-mode'));
+  document.querySelectorAll('[data-row]').forEach(r => r.style.display = '');
+  document.querySelectorAll('[data-group]').forEach(g => g.style.display = '');
+}
+
+// ---- Search ----
+const searchInput = document.getElementById('searchInput');
+const clearBtn = document.getElementById('clearBtn');
+const resultCount = document.getElementById('resultCount');
+
+searchInput.addEventListener('input', () => {
+  const q = searchInput.value.trim().toLowerCase();
+  clearBtn.classList.toggle('show', q.length > 0);
+
+  if (!q) {
+    const activeTab = document.querySelector('.tab.active');
+    showSection(activeTab ? activeTab.dataset.target : DATA[0].id);
+    return;
+  }
+
+  let total = 0;
+  document.querySelectorAll('.section').forEach(s => s.classList.add('search-mode'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+
+  document.querySelectorAll('[data-group]').forEach(group => {
+    let groupHasMatch = false;
+    group.querySelectorAll('[data-row]').forEach(row => {
+      const match = row.dataset.search.includes(q);
+      row.style.display = match ? '' : 'none';
+      if (match) { groupHasMatch = true; total++; }
+    });
+    group.style.display = groupHasMatch ? '' : 'none';
+  });
+
+  resultCount.textContent = total === 0
+    ? `Aucun résultat pour « ${searchInput.value} »`
+    : `${total} résultat${total>1?'s':''} pour « ${searchInput.value} »`;
+});
+
+clearBtn.addEventListener('click', () => {
+  searchInput.value = '';
+  searchInput.dispatchEvent(new Event('input'));
+  searchInput.focus();
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === '/' && document.activeElement !== searchInput) {
+    e.preventDefault();
+    searchInput.focus();
+  }
+});
+</script>
+</body>
+</html>
