@@ -5,14 +5,14 @@ import android.util.Log
 object Diag {
     private val diagnosticLogs = mutableListOf<String>()
 
-    // Variables globales requises par les services et activités
-    var recentKeys: Any? = null
-    var ocrStatus: Any? = null
-    var scanSource: Any? = null
-    var scanItems: Any? = null
-    var overlayError: Any? = null
-    var storeError: Any? = null
-    var recordKey: Any? = null
+    // Bons types pour éviter les erreurs d'appel
+    var recentKeys: MutableList<String> = mutableListOf()
+    var ocrStatus: String = ""
+    var scanSource: String = ""
+    var scanItems: MutableList<String> = mutableListOf()
+    var overlayError: String = ""
+    var storeError: String = ""
+    var recordKey: String = ""
 
     fun log(message: String) {
         try {
