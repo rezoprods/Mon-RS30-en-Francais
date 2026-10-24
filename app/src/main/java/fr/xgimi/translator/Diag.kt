@@ -1,22 +1,17 @@
-package fr.xgimi.translator
+package xgimi.translator
 
-import android.view.KeyEvent
+import android.util.Log
 
-/** Diagnostics en mémoire (affichés dans le panneau) pour les tests sur le projecteur. */
 object Diag {
-    @Volatile var scanSource = "—"
-    @Volatile var scanItems = 0
-    @Volatile var ocrStatus = "—"
-    @Volatile var overlayError: String? = null
-    @Volatile var storeError: String? = null
-    private val keys = ArrayDeque<String>()
+    private val diagnosticLogs = mutableListOf<String>()
 
-    @Synchronized
-    fun recordKey(code: Int) {
-        keys.addFirst(KeyEvent.keyCodeToString(code))
-        while (keys.size > 8) keys.removeLast()
+    fun log(message: String) {
+        // Ajout au début de la liste de manière compatible
+        diagnosticLogs.add(0, message)
+        Log.d("XGIMI_Translator", message)
     }
 
-    @Synchronized
-    fun recentKeys(): List<String> = keys.toList()
+    fun getAllLogs(): List<String> {
+        return diagnosticLogs
+    }
 }
